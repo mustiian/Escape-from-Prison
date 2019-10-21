@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9b4d40833456bbd4c980c18c40003d26
+guid: d0a646023f5b8044d993676d5e221c0a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -41,7 +41,11 @@ ModelImporter:
     400032: wall01
     400034: wall02
     400036: wall03
-    2100000: 'Material #2'
+    2100000: 'Material #4'
+    2100002: 'Material #6'
+    2100004: 'Material #3'
+    2100006: 'Material #2'
+    2100008: 'Material #5'
     2300000: bar012
     2300002: bar013
     2300004: bar014
