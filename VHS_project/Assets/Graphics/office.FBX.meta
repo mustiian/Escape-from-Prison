@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b40229738282d6148aba83ecb39ea6aa
+guid: b0870f71f69393a43840658e4f5420c1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -23,7 +23,11 @@ ModelImporter:
     400014: Object006
     400016: //RootNode
     400018: Plane001
-    2100000: No Name
+    2100000: 'Material #2'
+    2100002: 'Material #14'
+    2100004: 'Material #15'
+    2100006: 'Material #17'
+    2100008: 'Material #16'
     2300000: Box002
     2300002: Box003
     2300004: Object001
