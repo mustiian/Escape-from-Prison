@@ -24,7 +24,7 @@ public class MouseController : MonoBehaviour
     private float distanceToPlayer = 3f;
     private float stayingTime = 3;
     private float timeBetweenMovement = 3f;
-    private float timeBetweenStates = 30f;
+    private float timeBetweenStates = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -139,7 +139,10 @@ public class MouseController : MonoBehaviour
     private void EatState()
     {
         if (FoodPoint)
-            Agent.SetDestination (FoodPoint.position);
+            if (!IsCloseToObject (FoodPoint.gameObject, 1f))
+                Agent.SetDestination (FoodPoint.position);
+            else
+                Agent.isStopped = true;
         else
             WalkState ();
     }

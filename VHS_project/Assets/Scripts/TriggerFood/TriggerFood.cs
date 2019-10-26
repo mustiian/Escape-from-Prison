@@ -6,26 +6,20 @@ public class TriggerFood : MonoBehaviour
 {
     public MouseController mouse;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "Food")
-        {
-            mouse.FoodPoint = other.transform;
-        }
-    }
-
-    private void OnTriggerExit( Collider other )
-    {
-        if (other.transform.tag == "Food")
+        if (other.transform.tag == "Food" && mouse.FoodPoint != null)
         {
             mouse.FoodPoint = null;
         }
     }
 
-    private void OnTriggerStay( Collider other )
+    private void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag == "Food")
+        if (other.transform.tag == "Food" && mouse.FoodPoint == null)
         {
+            Debug.Log ("Food: " + other.name);
+
             mouse.FoodPoint = other.transform;
         }
     }
