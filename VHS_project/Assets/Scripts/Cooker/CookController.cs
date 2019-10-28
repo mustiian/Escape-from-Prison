@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class CookController : MonoBehaviour
 {
-    public enum State {Cooking = 0, Relaxing = 1, GiviningFood = 2}
+    public enum State {Cooking = 0, Washing = 1, GiviningFood = 2}
 
     public Transform CookPoint;
 
@@ -15,16 +15,23 @@ public class CookController : MonoBehaviour
 
     public Transform SaucepanObject;
 
+    public GameObject[] SaucepanPositions;
+
+    private SaucepanController saucepanController;
+
     private NavMeshAgent Agent;
 
     private State state = State.Cooking;
 
-    private float timeBetweenStates = 10f;
+    private float timeBetweenStates = 15f;
 
     // Start is called before the first frame update
     void Start()
     {
+        //if (SaucepanPositions.Length != 3)
+          //  Debug.LogError ("SaucepanPositions length is " + SaucepanPositions.Length);
         Agent = GetComponent<NavMeshAgent> ();
+        saucepanController = SaucepanObject.gameObject.GetComponent<SaucepanController> ();
         StartCoroutine (ChangeStateEnumerator (timeBetweenStates));
     }
 
@@ -48,9 +55,9 @@ public class CookController : MonoBehaviour
                 state = State.GiviningFood;
                 break;
             case State.GiviningFood:
-                state = State.Relaxing;
+                state = State.Cooking;
                 break;
-            case State.Relaxing:
+            case State.Washing:
                 state = State.Cooking;
                 break;
             default:
@@ -100,14 +107,35 @@ public class CookController : MonoBehaviour
     {
         Agent.SetDestination (CookPoint.position);
 
-        if (IsCloseToObject(SaucepanObject.gameObject, 2) && !ReachDestination(CookPoint.position))
+        if (!ReachDestination (CookPoint.position))
+            saucepanController.PickUp ();
+
+        if (IsCloseToObject(SaucepanPositions[0], 2) && !ReachDestination(CookPoint.position))
         {
-            LookAt (SaucepanObject.gameObject);
+            LookAt (SaucepanPositions[0]);
+        }
+        else if (ReachDestination (CookPoint.position) && saucepanController.isPickedUp())
+        {
+            Debug.Log ("Reached Cook " + saucepanController.isPickedUp ());
+            saucepanController.Drop ();
         }
     }
 
     private void GivingFood()
     {
+        Agent.SetDestination (GivingFoodPoint.position);
 
+        if (!ReachDestination (GivingFoodPoint.position))
+            saucepanController.PickUp ();
+
+        if (IsCloseToObject (SaucepanPositions[1], 2) && !ReachDestination (GivingFoodPoint.position))
+        {
+            LookAt (SaucepanPositions[1]);
+        }
+        else if (ReachDestination (GivingFoodPoint.position) && saucepanController.isPickedUp ())
+        {
+            Debug.Log ("Reached Give");
+            saucepanController.Drop ();
+        }
     }
 }
