@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 973188486356163032}
   - component: {fileID: 973188486347476824}
   - component: {fileID: 973188486344652248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 973188486350843416}
   - component: {fileID: 973188486344749624}
   - component: {fileID: 973188486357187710}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 973188486541193035}
   - component: {fileID: 973188486541193032}
   - component: {fileID: 973188486541193033}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

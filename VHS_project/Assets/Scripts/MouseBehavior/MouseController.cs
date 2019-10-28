@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MouseController : MonoBehaviour
 {
-    public enum State {Walking = 0, Eating = 1, Sleeping = 2}
+    public enum State {Walking = 0, Eating = 1, Relaxing = 2}
 
     public Transform[] MovementPoints;
 
@@ -40,23 +40,20 @@ public class MouseController : MonoBehaviour
         {
             if (IsCloseToObject (player, distanceToPlayer))
             {
-                state = State.Sleeping;
+                state = State.Relaxing;
             }
 
             if (state == State.Walking)
             {
                 WalkState ();
-                Debug.Log ("Walk state");
-            } else if (state == State.Sleeping)
+            } else if (state == State.Relaxing)
             {
                 SleepState ();
-                Debug.Log ("Sleep state");
 
             }
             else if (state == State.Eating)
             {
                 EatState ();
-                Debug.Log ("Eat state");
             }
         }
     }
@@ -68,7 +65,6 @@ public class MouseController : MonoBehaviour
 
         if (distance < minDistance * minDistance)
         {
-            Agent.SetDestination (SavePoint.position);
             return true;
         }
 
@@ -83,9 +79,9 @@ public class MouseController : MonoBehaviour
                 state = State.Eating;
                 break;
             case State.Eating:
-                state = State.Sleeping;
+                state = State.Relaxing;
                 break;
-            case State.Sleeping:
+            case State.Relaxing:
                 state = State.Walking;
                 break;
             default:
@@ -107,11 +103,8 @@ public class MouseController : MonoBehaviour
         int index = 0;
         if (actualPoint == null)
         {
-            while (actualPoint != MovementPoints[index])
-            {
-                index = (int)Random.Range (0, MovementPoints.Length);
-                actualPoint = MovementPoints[index];
-            }
+            index = (int)Random.Range (0, MovementPoints.Length);
+            actualPoint = MovementPoints[index];
         }
         else
         {
