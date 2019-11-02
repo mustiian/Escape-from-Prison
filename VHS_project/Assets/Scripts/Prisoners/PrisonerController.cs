@@ -5,56 +5,64 @@ using UnityEngine.AI;
 
 public class PrisonerController : MonoBehaviour
 {
-    public NavMeshAgent Agent;
+    public enum State {Walking = 0, Waiting = 1}
 
+    public NavMeshAgent Agent;
     public float Radius;
 
-    private Vector3 target;
+    private State state = State.Walking;
+    private PrisonerRandomPosition randomPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine (FindNewPointEnumeratror());
+        randomPosition = GetComponent<PrisonerRandomPosition> ();
+        randomPosition.FindNewPosition (Agent, Radius);
+        StartCoroutine (ChangeStateEnumerator (5f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private bool RandomNavmeshLocation(Vector3 center, float range, out Vector3 result)
-    {
-        for (int i = 0; i < 30; i++)
+        if (state == State.Walking && !ReachDestination(Agent.pathEndPosition))
         {
-            Vector3 randomPoint = center + Random.insideUnitSphere * range;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition (randomPoint, out hit, 1.0f, NavMesh.AllAreas))
-            {
-                result = hit.position;
-                return true;
-            }
+            Debug.Log ("Walk");
         }
-        result = Vector3.zero;
-        return false;
+        else if (state == State.Waiting)
+        {
+            Debug.Log ("Wait");
+        }
     }
 
-    private IEnumerator FindNewPointEnumeratror()
+    private void ChangeState()
+    {
+        switch (state)
+        {
+            case State.Walking:
+                state = State.Waiting;
+                break;
+            case State.Waiting:
+                state = State.Walking;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private IEnumerator ChangeStateEnumerator(float timeOffset)
     {
         while (true)
         {
-            RandomNavmeshLocation (transform.position, Radius, out target);
-            if (Agent.pathStatus == NavMeshPathStatus.PathComplete)
-                Agent.SetDestination (target);
-
-            yield return new WaitForSeconds (5f);
+            yield return new WaitForSeconds (timeOffset);
+            ChangeState ();
         }
     }
 
-    private void OnDrawGizmos()
+    private bool ReachDestination(Vector3 other)
     {
-        if (Agent.hasPath)
-            Gizmos.DrawWireSphere (target, 0.5f);
-    }
+        if (other.x == transform.position.x && other.z == transform.position.z)
+            return true;
 
+        return false;
+    }
 }
