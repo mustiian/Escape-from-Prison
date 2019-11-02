@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MouseController : MonoBehaviour
 {
-    public enum State {Walking = 0, Eating = 1, Sleeping = 2}
+    public enum State {Walking = 0, Eating = 1, Relaxing = 2}
 
     public Transform[] MovementPoints;
 
@@ -23,8 +23,8 @@ public class MouseController : MonoBehaviour
 
     private float distanceToPlayer = 3f;
     private float stayingTime = 3;
-    private float timeBetweenMovement = 3f;
-    private float timeBetweenStates = 5f;
+    private float timeBetweenMovement = 5f;
+    private float timeBetweenStates = 15f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,23 +40,25 @@ public class MouseController : MonoBehaviour
         {
             if (IsCloseToObject (player, distanceToPlayer))
             {
-                state = State.Sleeping;
+                state = State.Relaxing;
             }
 
             if (state == State.Walking)
             {
                 WalkState ();
-                Debug.Log ("Walk state");
-            } else if (state == State.Sleeping)
+                Debug.Log ("Walking");
+            }
+            else if (state == State.Relaxing) 
             {
                 SleepState ();
-                Debug.Log ("Sleep state");
+                Debug.Log ("Relaxig");
 
             }
             else if (state == State.Eating)
             {
                 EatState ();
-                Debug.Log ("Eat state");
+                Debug.Log ("Eating");
+
             }
         }
     }
@@ -68,7 +70,6 @@ public class MouseController : MonoBehaviour
 
         if (distance < minDistance * minDistance)
         {
-            Agent.SetDestination (SavePoint.position);
             return true;
         }
 
@@ -83,9 +84,9 @@ public class MouseController : MonoBehaviour
                 state = State.Eating;
                 break;
             case State.Eating:
-                state = State.Sleeping;
+                state = State.Relaxing;
                 break;
-            case State.Sleeping:
+            case State.Relaxing:
                 state = State.Walking;
                 break;
             default:
@@ -107,11 +108,8 @@ public class MouseController : MonoBehaviour
         int index = 0;
         if (actualPoint == null)
         {
-            while (actualPoint != MovementPoints[index])
-            {
-                index = (int)Random.Range (0, MovementPoints.Length);
-                actualPoint = MovementPoints[index];
-            }
+            index = (int)Random.Range (0, MovementPoints.Length);
+            actualPoint = MovementPoints[index];
         }
         else
         {
@@ -139,10 +137,10 @@ public class MouseController : MonoBehaviour
     private void EatState()
     {
         if (FoodPoint)
+        {
             if (!IsCloseToObject (FoodPoint.gameObject, 1f))
                 Agent.SetDestination (FoodPoint.position);
-            else
-                Agent.isStopped = true;
+        }
         else
             WalkState ();
     }

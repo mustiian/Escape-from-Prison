@@ -17,10 +17,10 @@ TagManager:
   - 
   - PostProcessing
   - Player
-  - 
-  - 
-  - 
-  - 
+  - NPC
+  - NotWalkable
+  - Walkable
+  - Enviroment
   - 
   - 
   - 

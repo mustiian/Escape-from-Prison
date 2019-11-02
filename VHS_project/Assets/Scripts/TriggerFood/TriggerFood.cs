@@ -18,8 +18,6 @@ public class TriggerFood : MonoBehaviour
     {
         if (other.transform.tag == "Food" && mouse.FoodPoint == null)
         {
-            Debug.Log ("Food: " + other.name);
-
             mouse.FoodPoint = other.transform;
         }
     }
