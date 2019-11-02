@@ -23,8 +23,8 @@ public class MouseController : MonoBehaviour
 
     private float distanceToPlayer = 3f;
     private float stayingTime = 3;
-    private float timeBetweenMovement = 3f;
-    private float timeBetweenStates = 5f;
+    private float timeBetweenMovement = 5f;
+    private float timeBetweenStates = 15f;
 
     // Start is called before the first frame update
     void Start()
@@ -46,14 +46,19 @@ public class MouseController : MonoBehaviour
             if (state == State.Walking)
             {
                 WalkState ();
-            } else if (state == State.Relaxing)
+                Debug.Log ("Walking");
+            }
+            else if (state == State.Relaxing) 
             {
                 SleepState ();
+                Debug.Log ("Relaxig");
 
             }
             else if (state == State.Eating)
             {
                 EatState ();
+                Debug.Log ("Eating");
+
             }
         }
     }
@@ -132,10 +137,10 @@ public class MouseController : MonoBehaviour
     private void EatState()
     {
         if (FoodPoint)
+        {
             if (!IsCloseToObject (FoodPoint.gameObject, 1f))
                 Agent.SetDestination (FoodPoint.position);
-            else
-                Agent.isStopped = true;
+        }
         else
             WalkState ();
     }
