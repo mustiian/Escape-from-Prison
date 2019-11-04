@@ -1,14 +1,17 @@
 fileFormatVersion: 2
-guid: 9d599c4816be0604ebaa0fa78ed33e23
+guid: 7938e18773ced2f43a5fc4514e5efc11
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Material.021
+    2100000: yellow_sig
+    2100002: lambert6
+    2100004: lambert1
+    2100006: lambert8
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube.003_Cube.024
+    4300000: the_best_cigarette
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 23fb037b1f9ad5840953950afaac7891
+guid: 7e3f53c3f8a3ca44082beaac5b8544ce
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
+    2100000: FFFFFF
+    2100002: 1A1A1A.001
+    2100004: 455A64.001
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: toilet_Cube.025
   externalObjects: {}
   materials:
     importMaterials: 1
