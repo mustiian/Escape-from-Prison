@@ -18,15 +18,18 @@ public class PrisonerController : MonoBehaviour
     {
         randomPosition = GetComponent<PrisonerRandomPosition> ();
         randomPosition.FindNewPosition (Agent, Radius);
-        StartCoroutine (ChangeStateEnumerator (5f));
+        StartCoroutine (ChangeStateEnumerator (10f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (state == State.Walking && !ReachDestination(Agent.pathEndPosition))
+        if (state == State.Walking)
         {
-            Debug.Log ("Walk");
+            if (!Agent.hasPath)
+                randomPosition.FindNewPosition (Agent, Radius);
+            else
+                Debug.Log ("Walk");
         }
         else if (state == State.Waiting)
         {

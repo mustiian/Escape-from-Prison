@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class PrisonerRandomPosition : MonoBehaviour
 {
-    private Vector3 target;
+    private Vector3 target = Vector3.zero;
+
+    private bool canWalk = true;
 
     private bool RandomNavmeshLocation( Vector3 center, float range, out Vector3 result )
     {
@@ -24,20 +26,26 @@ public class PrisonerRandomPosition : MonoBehaviour
     }
 
     public void FindNewPosition(NavMeshAgent agent, float raduis)
-    {
-        StartCoroutine (FindNewPointEnumeratror (agent, raduis));
-    }
-
-    private IEnumerator FindNewPointEnumeratror(NavMeshAgent agent, float raduis )
-    {
-        while (true)
+    { 
+        if (canWalk)
         {
             RandomNavmeshLocation (transform.position, raduis, out target);
             if (agent.pathStatus == NavMeshPathStatus.PathComplete)
                 agent.SetDestination (target);
 
-            yield return new WaitForSeconds (5f);
+            canWalk = false;
+            StartCoroutine (CanWalkEnumeratror (3f));
         }
+    }
+
+    private IEnumerator CanWalkEnumeratror(float time)
+    {
+        yield return new WaitForSeconds (time);
+
+        canWalk = true;
+        Debug.Log ("Can Walk");
+
+        yield break;
     }
 
     private void OnDrawGizmos()
