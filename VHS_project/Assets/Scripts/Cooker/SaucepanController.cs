@@ -21,24 +21,29 @@ public class SaucepanController : MonoBehaviour
         return pick;
     }
 
+    public void Set(GameObject item, GameObject parent, Transform guide)
+    {
+        Item = item;
+        Parent = parent;
+        Guide = guide;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (pick)
         {
-            rigidBody.useGravity = false;
-            rigidBody.isKinematic = true;
             Item.transform.position = Guide.transform.position;
             Item.transform.rotation = Guide.transform.rotation;
-            Item.transform.parent = Parent.transform;
-
-            Debug.Log ("Pick");
         }
     }
 
     public void PickUp()
     {
         pick = true;
+        rigidBody.useGravity = false;
+        rigidBody.isKinematic = true;
+        Item.transform.parent = Parent.transform;
     }
 
     public void Drop()
@@ -48,7 +53,6 @@ public class SaucepanController : MonoBehaviour
         rigidBody.isKinematic = false;
         Item.transform.parent = null;
         Item.transform.position = Guide.transform.position;
-
-        Debug.Log ("Drop");
+        rigidBody.velocity = Vector3.zero;
     }
 }

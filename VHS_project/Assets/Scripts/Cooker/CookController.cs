@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class CookController : MonoBehaviour
 {
-    public enum State {Cooking = 0, Washing = 1, GiviningFood = 2}
+    public enum State {Cooking = 0, Relaxing = 1, GiviningFood = 2}
 
     public Transform CookPoint;
 
@@ -13,9 +13,13 @@ public class CookController : MonoBehaviour
 
     public Transform GivingFoodPoint;
 
-    public Transform SaucepanObject;
+    public GameObject SaucepanPrefab;
+
+    public Transform Hands;
 
     public GameObject[] SaucepanPositions;
+
+    private GameObject SaucepanObject;
 
     private SaucepanController saucepanController;
 
@@ -23,28 +27,38 @@ public class CookController : MonoBehaviour
 
     private State state = State.Cooking;
 
-    private float timeBetweenStates = 15f;
+    private float timeBetweenStates = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        //if (SaucepanPositions.Length != 3)
-          //  Debug.LogError ("SaucepanPositions length is " + SaucepanPositions.Length);
         Agent = GetComponent<NavMeshAgent> ();
-        saucepanController = SaucepanObject.gameObject.GetComponent<SaucepanController> ();
+        CreateNewSaucepan ();
         StartCoroutine (ChangeStateEnumerator (timeBetweenStates));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (state == State.Cooking)
+        if (state == State.Cooking && SaucepanObject != null)
         {
             Cook ();
-        } else if (state == State.GiviningFood)
+        }
+        else if (state == State.GiviningFood && SaucepanObject != null)
         {
             GivingFood ();
         }
+        else if (state == State.Relaxing)
+        {
+            Relaxing ();
+        }
+    }
+
+    public void StartCooking()
+    {
+        state = State.Cooking;
+        StopAllCoroutines ();
+        StartCoroutine (ChangeStateEnumerator (timeBetweenStates));
     }
 
     private void ChangeState()
@@ -57,7 +71,7 @@ public class CookController : MonoBehaviour
             case State.GiviningFood:
                 state = State.Cooking;
                 break;
-            case State.Washing:
+            case State.Relaxing:
                 state = State.Cooking;
                 break;
             default:
@@ -116,7 +130,6 @@ public class CookController : MonoBehaviour
         }
         else if (ReachDestination (CookPoint.position) && saucepanController.isPickedUp())
         {
-            Debug.Log ("Reached Cook " + saucepanController.isPickedUp ());
             saucepanController.Drop ();
         }
     }
@@ -134,8 +147,30 @@ public class CookController : MonoBehaviour
         }
         else if (ReachDestination (GivingFoodPoint.position) && saucepanController.isPickedUp ())
         {
-            Debug.Log ("Reached Give");
             saucepanController.Drop ();
+            SaucepanObject = null;
+            StopAllCoroutines ();
+            state = State.Relaxing;
+        }
+    }
+
+    private void Relaxing()
+    {
+        Agent.SetDestination (RelaxPoint.position);
+
+        if (IsCloseToObject (SaucepanPositions[2], 2) && !ReachDestination (RelaxPoint.position))
+        {
+            LookAt (SaucepanPositions[2]);
+        }
+    }
+
+    public void CreateNewSaucepan()
+    {
+        if (SaucepanObject == null)
+        {
+            SaucepanObject = GameObject.Instantiate (SaucepanPrefab);
+            saucepanController = SaucepanObject.gameObject.GetComponent<SaucepanController> ();
+            saucepanController.Set (SaucepanObject, Hands.gameObject, Hands);
         }
     }
 }

@@ -43,7 +43,6 @@ public class PrisonerRandomPosition : MonoBehaviour
         yield return new WaitForSeconds (time);
 
         canWalk = true;
-        Debug.Log ("Can Walk");
 
         yield break;
     }
