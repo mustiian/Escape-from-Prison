@@ -21,6 +21,8 @@ public class MouseController : MonoBehaviour
 
     private Transform actualPoint = null;
 
+    private Animator animator;
+
     private float distanceToPlayer = 3f;
     private float stayingTime = 3;
     private float timeBetweenMovement = 5f;
@@ -30,6 +32,7 @@ public class MouseController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag ("Player");
+        animator = GetComponent<Animator> ();
         StartCoroutine (ChangeStateEnumerator (timeBetweenStates));
     }
 
@@ -46,19 +49,15 @@ public class MouseController : MonoBehaviour
             if (state == State.Walking)
             {
                 WalkState ();
-                Debug.Log ("Walking");
+                animator.SetTrigger ("Walk");
             }
             else if (state == State.Relaxing) 
             {
                 SleepState ();
-                Debug.Log ("Relaxig");
-
             }
             else if (state == State.Eating)
             {
                 EatState ();
-                Debug.Log ("Eating");
-
             }
         }
     }
@@ -132,6 +131,7 @@ public class MouseController : MonoBehaviour
     private void SleepState()
     {
         Agent.SetDestination (SavePoint.position);
+        animator.SetTrigger ("Idle");
     }
 
     private void EatState()
@@ -139,9 +139,15 @@ public class MouseController : MonoBehaviour
         if (FoodPoint)
         {
             if (!IsCloseToObject (FoodPoint.gameObject, 1f))
+            {
                 Agent.SetDestination (FoodPoint.position);
+                animator.SetTrigger ("Walk");
+            }
         }
         else
+        {
             WalkState ();
+            animator.SetTrigger ("Idle");
+        }
     }
 }

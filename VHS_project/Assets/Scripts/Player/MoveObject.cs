@@ -16,7 +16,6 @@ public class MoveObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log ("OnMouse down " + Item.name);
         Item.GetComponent<Rigidbody> ().useGravity = false;
         Item.GetComponent<Rigidbody> ().isKinematic = true;
         Item.transform.position = Guide.transform.position;
