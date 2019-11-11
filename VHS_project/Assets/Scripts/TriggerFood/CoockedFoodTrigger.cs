@@ -31,13 +31,18 @@ public class CoockedFoodTrigger : MonoBehaviour
     {
         if (other.transform.tag == "Food")
         {
-            int index = Random.Range (0, prisoners.Length);
-
-            if (prisoners[index].isHungry)
+            for (int i = 0; i < 10; i++)
             {
-                prisoners[index].StartEatState (other.gameObject);
-                Debug.Log ("Food is here");
+                int index = Random.Range (0, prisoners.Length);
+
+                if (prisoners[index].isHungry)
+                {
+                    prisoners[index].StartEatState (other.gameObject);
+                    Debug.Log ("Food is here");
+                    return;
+                }
             }
+           
         }
     }
 }
