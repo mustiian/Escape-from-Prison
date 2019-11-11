@@ -49,7 +49,6 @@ public class MouseController : MonoBehaviour
             if (state == State.Walking)
             {
                 WalkState ();
-                animator.SetTrigger ("Walk");
             }
             else if (state == State.Relaxing) 
             {
@@ -109,11 +108,15 @@ public class MouseController : MonoBehaviour
         {
             index = (int)Random.Range (0, MovementPoints.Length);
             actualPoint = MovementPoints[index];
+            animator.SetTrigger ("Walk");
+
         }
         else
         {
             if (IsCloseToObject(actualPoint.gameObject, 0.2f))
             {
+                animator.SetTrigger ("Idle");
+
                 if (stayingTime == 0)
                     stayingTime = Time.time + timeBetweenMovement;
 
