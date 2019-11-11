@@ -25,6 +25,8 @@ public class CookController : MonoBehaviour
 
     private NavMeshAgent Agent;
 
+    private Animator animator;
+
     private State state = State.Cooking;
 
     private float timeBetweenStates = 5f;
@@ -33,6 +35,7 @@ public class CookController : MonoBehaviour
     void Start()
     {
         Agent = GetComponent<NavMeshAgent> ();
+        animator = GetComponent<Animator> ();
         CreateNewSaucepan ();
         StartCoroutine (ChangeStateEnumerator (timeBetweenStates));
     }
@@ -122,7 +125,14 @@ public class CookController : MonoBehaviour
         Agent.SetDestination (CookPoint.position);
 
         if (!ReachDestination (CookPoint.position))
+        {
+            animator.SetTrigger ("Walk");
             saucepanController.PickUp ();
+        }
+        else
+        {
+            animator.SetTrigger ("Idle");
+        }
 
         if (IsCloseToObject(SaucepanPositions[0], 2) && !ReachDestination(CookPoint.position))
         {
@@ -131,6 +141,7 @@ public class CookController : MonoBehaviour
         else if (ReachDestination (CookPoint.position) && saucepanController.isPickedUp())
         {
             saucepanController.Drop ();
+            animator.SetTrigger ("Idle");
         }
     }
 
@@ -139,7 +150,10 @@ public class CookController : MonoBehaviour
         Agent.SetDestination (GivingFoodPoint.position);
 
         if (!ReachDestination (GivingFoodPoint.position))
+        {
             saucepanController.PickUp ();
+            animator.SetTrigger ("Walk");
+        }
 
         if (IsCloseToObject (SaucepanPositions[1], 2) && !ReachDestination (GivingFoodPoint.position))
         {
@@ -157,6 +171,7 @@ public class CookController : MonoBehaviour
     private void Relaxing()
     {
         Agent.SetDestination (RelaxPoint.position);
+        animator.SetTrigger ("Idle");
 
         if (IsCloseToObject (SaucepanPositions[2], 2) && !ReachDestination (RelaxPoint.position))
         {

@@ -21,12 +21,14 @@ public class PrisonerController : MonoBehaviour
     private DinnerSeatsController seatsController;
     private Seat seat;
     private Vector3 latestPosition;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         randomPosition = GetComponent<PrisonerRandomPosition> ();
         seatsController = FindObjectOfType<DinnerSeatsController> ();
+        animator = GetComponent<Animator> ();
         randomPosition.FindNewPosition (Agent, Radius);
         StartCoroutine (ChangeStateEnumerator (10f));
     }
@@ -39,26 +41,27 @@ public class PrisonerController : MonoBehaviour
             if (!Agent.hasPath)
                 randomPosition.FindNewPosition (Agent, Radius);
             else
-                Debug.Log ("Walk");
+            {
+                animator.SetTrigger ("Walk");
+            }
         }
         else if (state == State.Waiting)
         {
-            Debug.Log ("Wait");
+            animator.SetTrigger ("Idle");
         }
         else if (state == State.TakingFood)
         {
             TakeFood ();
-            Debug.Log ("Take food");
         }
         else if (state == State.Eating)
         {
+            animator.SetTrigger ("Eat");
+
             Eat ();
-            Debug.Log ("Eat food");
         }
         else if (state == State.GivingFood)
         {
             GiveFood ();
-            Debug.Log ("Give food");
         }
     }
 
@@ -86,9 +89,6 @@ public class PrisonerController : MonoBehaviour
                 break;
             case State.Eating:
                 state = State.GivingFood;
-                /*transform.position = latestPosition;
-                Agent.enabled = true;
-                Agent.isStopped = false;*/
                 foodObject.GetComponent<SaucepanController> ().PickUp ();
                 seatsController.SetSeatToFree (seat);
                 break;
@@ -142,7 +142,10 @@ public class PrisonerController : MonoBehaviour
     {
         if (Hands.childCount == 0)
         {
+            animator.SetTrigger ("Walk");
+
             Agent.SetDestination (TakeFoodPoint.position);
+
 
             if (IsCloseToObject (foodObject, 2) && !ReachDestination (TakeFoodPoint.position))
             {
@@ -157,18 +160,11 @@ public class PrisonerController : MonoBehaviour
         else
         {
             Agent.SetDestination (seat.SeatPoint.position);
-            /*
-            if (IsCloseToObject (seat.SeatPoint.gameObject, 1.5f))
-            {
-                latestPosition = transform.position;
-                Agent.isStopped = true;
-                Agent.enabled = false;
-                transform.position = seat.SeatPoint.position;
-                transform.rotation = seat.SeatPoint.rotation;
-            }*/
+
             if (ReachDestination (seat.SeatPoint.position))
             {
                 ChangeState ();
+                animator.SetTrigger ("Eat");
                 transform.rotation = seat.SeatPoint.rotation;
                 StartCoroutine (ChangeStateEnumerator (10f));
                 foodObject.GetComponent<SaucepanController> ().Drop ();
@@ -178,12 +174,12 @@ public class PrisonerController : MonoBehaviour
 
     private void Eat()
     {
-        Debug.Log ("EAT NOW");
     }
 
     private void GiveFood()
     {
         Agent.SetDestination (GiveFoodPoint.position);
+        animator.SetTrigger ("Walk");
 
         if (ReachDestination (GiveFoodPoint.position))
         {
