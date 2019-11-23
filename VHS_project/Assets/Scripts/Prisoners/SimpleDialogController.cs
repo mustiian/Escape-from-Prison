@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class SimpleDialogController : MonoBehaviour
 {
-    public Text dialogText;
+    public Canvas dialogText;
     private GameObject player;
     private float speedRotation = 10f;
-    private float dissapearTime = 3f;
+    private float dissapearTime = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        dialogText = GetComponentInChildren<Text> ();
+        dialogText = GetComponentInChildren<Canvas> ();
         player = GameObject.FindGameObjectWithTag ("Player");
 
         dialogText.enabled = false;
@@ -22,7 +22,7 @@ public class SimpleDialogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.E))
+        if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.E) )
         {
             dialogText.enabled = true;
             StopAllCoroutines ();
@@ -41,7 +41,6 @@ public class SimpleDialogController : MonoBehaviour
 
     private void LookAt( GameObject other )
     {
-
         var lookPos = other.transform.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation (lookPos);
@@ -63,14 +62,19 @@ public class SimpleDialogController : MonoBehaviour
 
     private IEnumerator rotateToObject(Quaternion destRotation)
     {
-        while (transform.rotation != destRotation)
+        int length = 20;
+        for (int i = 0; i < length; i++)
         {
-            transform.rotation = Quaternion.Lerp (transform.rotation, destRotation, speedRotation * Time.deltaTime);
-
+            transform.rotation = Quaternion.Slerp (transform.rotation, destRotation, speedRotation * Time.deltaTime);
+            Debug.Log ("Rotate to the player" + transform.rotation.y + " | Dest: " + destRotation.y + " Inverse " + Quaternion.Inverse(destRotation).y);
             yield return null;
         }
+        Debug.Log ("Wait");
 
         yield return new WaitForSeconds (dissapearTime);
+
+        Debug.Log ("Disable");
+
 
         dialogText.enabled = false;
 
