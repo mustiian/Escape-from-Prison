@@ -66,16 +66,9 @@ public class SimpleDialogController : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             transform.rotation = Quaternion.Slerp (transform.rotation, destRotation, speedRotation * Time.deltaTime);
-            Debug.Log ("Rotate to the player" + transform.rotation.y + " | Dest: " + destRotation.y + " Inverse " + Quaternion.Inverse(destRotation).y);
             yield return null;
         }
-        Debug.Log ("Wait");
-
         yield return new WaitForSeconds (dissapearTime);
-
-        Debug.Log ("Disable");
-
-
         dialogText.enabled = false;
 
         yield break;
