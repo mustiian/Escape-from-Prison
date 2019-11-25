@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Fire
   - Food
+  - Fader
+  - UI
+  - SceneManager
   layers:
   - Default
   - TransparentFX

@@ -42,6 +42,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        public void SetMouseCursor(bool state)
+        {
+            m_MouseLook.SetCursorLock (state);
+        }
+
         // Use this for initialization
         private void Start()
         {

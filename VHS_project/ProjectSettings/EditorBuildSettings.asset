@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/_InGameScenes/Cells.unity
+    guid: c3dae6864441ab2499eb3a1e4b660348
+  - enabled: 1
+    path: Assets/_Scenes/_InGameScenes/DinnerRoom.unity
+    guid: 827fb6689b304654b99cbf9905fd9282
   m_configObjects: {}
