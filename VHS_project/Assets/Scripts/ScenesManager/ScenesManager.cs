@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class ScenesManager : MonoBehaviour
 {
+    public GameObject StartScene;
+    public List<GameObject> AllScenes;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        ActivateScene (StartScene);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ActivateScene(GameObject scene)
     {
-        
+        DeacivateAllScenes ();
+        scene.SetActive (true);
+    }
+
+    private void DeacivateAllScenes()
+    {
+        foreach (var scene in AllScenes)
+        {
+            scene.SetActive (false);
+        }
     }
 }

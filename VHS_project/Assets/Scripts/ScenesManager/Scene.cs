@@ -13,17 +13,20 @@ public class Scene : MonoBehaviour
     private GameObject player;
     private GameObject fader;
     private FirstPersonController playerController;
+    private ScenesManager sceneManager;
+    private GameObject sceneGameObject;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag ("Player");
         playerController = player.GetComponent<FirstPersonController> ();
         fader = GameObject.FindGameObjectWithTag ("Fader");
+        sceneManager = GameObject.FindGameObjectWithTag ("SceneManager").GetComponent<ScenesManager>();
+        sceneGameObject = transform.GetChild (0).gameObject;
     }
 
     public void ChangeScene()
     {
-        playerController.enabled = false;
         StartCoroutine (changeSceneEnumerator ());
     }
 
@@ -32,13 +35,15 @@ public class Scene : MonoBehaviour
         fader.GetComponent<Animator> ().SetTrigger ("fadein");
 
         yield return new WaitForSeconds (1f);
+        //sceneManager.ActivateScene (sceneGameObject);
 
+        playerController.enabled = false;
         player.transform.rotation = respawnRotation;
         player.transform.position = respawnPosition.position;
 
-        fader.GetComponent<Animator> ().SetTrigger ("fadeout");
+        yield return new WaitForSeconds (1.0f);
 
-        yield return new WaitForSeconds (0.01f);
+        fader.GetComponent<Animator> ().SetTrigger ("fadeout");
 
         playerController.enabled = true;
         playerController.SetMouseCursor(true);

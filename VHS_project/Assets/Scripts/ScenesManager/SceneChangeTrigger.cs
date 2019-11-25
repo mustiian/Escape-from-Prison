@@ -5,6 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class SceneChangeTrigger : MonoBehaviour
 {
+    public GameObject SceneMapUI;
     private GameObject player;
     private FirstPersonController playerController;
 
@@ -17,9 +18,13 @@ public class SceneChangeTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (IsCloseToObject(player, 2) && Input.GetKeyDown(KeyCode.E))
+        if (IsCloseToObject(player, 3))
         {
-            playerController.SetMouseCursor (false);
+            SceneMapUI.SetActive (true);
+        }
+        else
+        {
+            SceneMapUI.SetActive (false);
         }
     }
 
