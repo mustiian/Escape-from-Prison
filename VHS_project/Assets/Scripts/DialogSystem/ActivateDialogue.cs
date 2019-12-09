@@ -5,9 +5,12 @@ using UnityEngine;
 public class ActivateDialogue : MonoBehaviour
 {
     public Dialogue StartDialogue;
+    public float Distance = 3f;
+    public Vector3 newRotation;
 
     private DialogueManager dm;
     private GameObject player;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +22,9 @@ public class ActivateDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject (player, 3) && Input.GetKeyDown (KeyCode.E))
+        if (IsCloseToObject (player, Distance) && Input.GetKeyDown (KeyCode.E))
         {
+            dm.BubbleSpawner.rotation = newRotation;
             dm.StartDialogueSequence (StartDialogue);
         }
     }
