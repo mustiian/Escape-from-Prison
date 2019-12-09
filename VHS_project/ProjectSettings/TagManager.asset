@@ -9,6 +9,7 @@ TagManager:
   - Fader
   - UI
   - SceneManager
+  - DialogueManager
   layers:
   - Default
   - TransparentFX
