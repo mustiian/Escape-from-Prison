@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
@@ -10,10 +11,15 @@ public class Inventory : MonoBehaviour
 
     public Transform Hands;
 
+    public static Inventory instance;
+
+    public TextMeshProUGUI InventoryUI;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
+        InventoryUI.text = "";
     }
 
     // Update is called once per frame
@@ -27,21 +33,19 @@ public class Inventory : MonoBehaviour
 
     public void EquipItem(Item item)
     {
-        if (IsCloseToObject(item.gameObject, 2))
-        {
-            ActiveItem = item;
-            IsItemEquipped = true;
+        ActiveItem = item;
+        IsItemEquipped = true;
+        InventoryUI.text = item.Type.ToString ();
 
-            ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
-            ActiveItem.transform.position = new Vector3 (0, 500, 0);
-            ActiveItem.transform.parent = Hands;
-        }
+        ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
+        ActiveItem.transform.position = new Vector3 (0, 500, 0);
+        ActiveItem.transform.parent = Hands;
     }
 
     public void DropItem()
     {
         IsItemEquipped = false;
-
+        InventoryUI.text = "";
         ActiveItem.GetComponent<Rigidbody> ().useGravity = true;
         ActiveItem.transform.position = Hands.position;
         ActiveItem.transform.parent = null;
@@ -49,16 +53,16 @@ public class Inventory : MonoBehaviour
         ActiveItem = null;
     }
 
-    private bool IsCloseToObject( GameObject target, float minDistance = 1 )
+    public void GiveItem(Vector3 position)
     {
-        Vector3 gap = target.transform.position - transform.position;
-        float distance = gap.sqrMagnitude;
+        IsItemEquipped = false;
+        InventoryUI.text = "";
+        ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
+        ActiveItem.transform.position = position;
+        ActiveItem.transform.parent = null;
 
-        if (distance < minDistance * minDistance)
-        {
-            return true;
-        }
-
-        return false;
+        ActiveItem = null;
     }
+
+    
 }

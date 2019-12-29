@@ -38,7 +38,6 @@ public class CoockedFoodTrigger : MonoBehaviour
                 if (prisoners[index].isHungry)
                 {
                     prisoners[index].StartEatState (other.gameObject);
-                    Debug.Log ("Food is here");
                     return;
                 }
             }

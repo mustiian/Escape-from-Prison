@@ -45,9 +45,23 @@ public class PlayerRaycast : MonoBehaviour
 
                 if (item != null && !playerInventory.IsItemEquipped)
                 {
-                    playerInventory.EquipItem (item);
+                    if (IsCloseToObject (item.gameObject, playerInventory.gameObject, 2))
+                        playerInventory.EquipItem (item);
                 }
             }
         }
+    }
+
+    private bool IsCloseToObject(GameObject origin, GameObject target, float minDistance = 1)
+    {
+        Vector3 gap = target.transform.position - origin.transform.position;
+        float distance = gap.sqrMagnitude;
+
+        if (distance < minDistance * minDistance)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

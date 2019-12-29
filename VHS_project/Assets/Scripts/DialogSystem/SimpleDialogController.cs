@@ -9,21 +9,24 @@ public class SimpleDialogController : MonoBehaviour
     private GameObject player;
     private float speedRotation = 10f;
     private float dissapearTime = 2f;
+    public QuestDialogSystem quest;
 
     // Start is called before the first frame update
     void Start()
     {
         dialogText = GetComponentInChildren<Canvas> ();
         player = GameObject.FindGameObjectWithTag ("Player");
-
+        quest = GetComponent<QuestDialogSystem> ();
         dialogText.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.E) )
+        if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.F) )
         {
+            quest.CheckQuestStatus ();
+
             dialogText.enabled = true;
             StopAllCoroutines ();
             Debug.Log("Talk with player");
