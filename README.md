@@ -17,6 +17,6 @@ More information about ideas and concept you could find in our design document [
 
 [Second part part of the documentation](documentation2.md)
 
-#### complex world
+#### Complex world
 
 [Third part part of the documentation](documentation3.md)
