@@ -31,11 +31,21 @@ public class PlayerRaycast : MonoBehaviour
                     var button = hit.transform.GetComponent<Button> ();
                     button.onClick.Invoke ();
                 }
+
+                Item item = hit.transform.gameObject.GetComponent<Item> ();
+
+                if (item != null && !playerInventory.IsItemEquipped)
+                {
+                    if (IsCloseToObject (item.gameObject, playerInventory.gameObject, 2))
+                        playerInventory.EquipItem (item);
+                }
             }
         }
 
+        /*
         if (Input.GetKeyDown (KeyCode.E))
         {
+
             var ray = mainCamera.ScreenPointToRay (Input.mousePosition);
             RaycastHit hit;
 
@@ -50,6 +60,7 @@ public class PlayerRaycast : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private bool IsCloseToObject(GameObject origin, GameObject target, float minDistance = 1)

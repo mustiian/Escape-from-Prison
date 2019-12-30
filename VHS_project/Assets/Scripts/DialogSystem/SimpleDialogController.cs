@@ -25,7 +25,8 @@ public class SimpleDialogController : MonoBehaviour
     {
         if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.F) )
         {
-            quest.CheckQuestStatus ();
+            if (quest != null)
+                quest.CheckQuestStatus ();
 
             dialogText.enabled = true;
             StopAllCoroutines ();

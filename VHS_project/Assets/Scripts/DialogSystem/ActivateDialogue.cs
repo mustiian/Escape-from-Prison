@@ -22,7 +22,7 @@ public class ActivateDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject (player, Distance) && Input.GetKeyDown (KeyCode.E))
+        if (IsCloseToObject (player, Distance) && Input.GetKeyDown (KeyCode.F))
         {
             dm.BubbleSpawner.rotation = newRotation;
             dm.StartDialogueSequence (StartDialogue);

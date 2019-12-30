@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsItemEquipped && Input.GetKeyDown (KeyCode.E))
+        if (IsItemEquipped && Input.GetMouseButtonDown (1))
         {
             DropItem ();
         }
@@ -34,18 +34,23 @@ public class Inventory : MonoBehaviour
     public void EquipItem(Item item)
     {
         ActiveItem = item;
-        IsItemEquipped = true;
         InventoryUI.text = item.Type.ToString ();
 
+        Debug.Log ("Get item");
+        
         ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
-        ActiveItem.transform.position = new Vector3 (0, 500, 0);
+        ActiveItem.transform.position += new Vector3 (0, 100, 0);
         ActiveItem.transform.parent = Hands;
+        StartCoroutine (PickUpEnumerator (0.1f));
     }
 
     public void DropItem()
     {
         IsItemEquipped = false;
         InventoryUI.text = "";
+
+        Debug.Log ("Drop item");
+
         ActiveItem.GetComponent<Rigidbody> ().useGravity = true;
         ActiveItem.transform.position = Hands.position;
         ActiveItem.transform.parent = null;
@@ -58,11 +63,18 @@ public class Inventory : MonoBehaviour
         IsItemEquipped = false;
         InventoryUI.text = "";
         ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
+        ActiveItem.GetComponent<Rigidbody> ().isKinematic = true;
         ActiveItem.transform.position = position;
         ActiveItem.transform.parent = null;
 
         ActiveItem = null;
     }
 
+    public IEnumerator PickUpEnumerator(float delay)
+    {
+        yield return new WaitForSeconds (delay);
+
+        IsItemEquipped = true;
+    }
     
 }
