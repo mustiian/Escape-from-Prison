@@ -1,6 +1,6 @@
 ## Simple dialogues
 
-We add simple frazes, which saw NPC, when player talk to them. NPC always rotates to the player when speaks.
+We add simple frazes, which say NPCs, when player talk to them. NPC always rotates to the player when speaks.
 
 <img width="700" alt="portfolio_view" src="foto/3 doc/2.JPG">
 
@@ -14,9 +14,9 @@ Add complex dialogues, where player could choose different answers and the story
 
 <img width="700" alt="portfolio_view" src="foto/3 doc/4.JPG">
 
-## Map
+## Scenes changer
 
-Add scenes changer, which changes scene when player clicks on te button.
+Add scenes changer, which changes scene when player clicks on te button. Appears only if player is close.
 
 <img width="700" alt="portfolio_view" src="foto/3 doc/5.JPG">
 
