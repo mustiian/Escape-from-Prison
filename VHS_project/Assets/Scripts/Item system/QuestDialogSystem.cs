@@ -14,6 +14,8 @@ public class QuestDialogSystem : MonoBehaviour
     public ItemType QuestItem;
     public GameObject RewardItem;
 
+    public Action CompletedAction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +23,7 @@ public class QuestDialogSystem : MonoBehaviour
         if (RewardItem != null)
             if (RewardItem.GetComponent<Item>() == null)
                 Debug.LogError (transform.name + ": RewardItem hasn't class Item");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void CheckQuestStatus()
@@ -36,6 +33,9 @@ public class QuestDialogSystem : MonoBehaviour
                 IsCompleted = true;
                 Text.text = CompletedQuestText;
                 Inventory.instance.GiveItem (transform.position - new Vector3 (0, 100, 0));
+
+                if (CompletedAction)
+                    CompletedAction.Activate ();
 
                 if (RewardItem != null)
                     Inventory.instance.EquipItem (RewardItem.GetComponent<Item> ());
