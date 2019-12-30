@@ -36,8 +36,6 @@ public class Inventory : MonoBehaviour
         ActiveItem = item;
         InventoryUI.text = item.Type.ToString ();
 
-        Debug.Log ("Get item");
-        
         ActiveItem.GetComponent<Rigidbody> ().useGravity = false;
         ActiveItem.transform.position += new Vector3 (0, 100, 0);
         ActiveItem.transform.parent = Hands;
@@ -48,8 +46,6 @@ public class Inventory : MonoBehaviour
     {
         IsItemEquipped = false;
         InventoryUI.text = "";
-
-        Debug.Log ("Drop item");
 
         ActiveItem.GetComponent<Rigidbody> ().useGravity = true;
         ActiveItem.transform.position = Hands.position;
