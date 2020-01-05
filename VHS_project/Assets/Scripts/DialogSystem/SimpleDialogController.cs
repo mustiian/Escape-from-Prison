@@ -11,6 +11,8 @@ public class SimpleDialogController : MonoBehaviour
     private float dissapearTime = 2f;
     public QuestDialogSystem quest;
 
+    public float Distance = 4f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +25,13 @@ public class SimpleDialogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject(player, 3) && Input.GetKeyDown(KeyCode.F) )
+        if (IsCloseToObject(player, Distance) && Input.GetKeyDown(KeyCode.F) )
         {
             if (quest != null)
                 quest.CheckQuestStatus ();
 
             dialogText.enabled = true;
             StopAllCoroutines ();
-            Debug.Log("Talk with player");
             LookAt (player);
         }
     }

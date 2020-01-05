@@ -41,7 +41,7 @@ public class Dialogue : MonoBehaviour
 
     public void EndDialogue()
     {
-        Debug.Log ("    End" + ActiveSentence.Sentence);
+        Debug.Log ("    End: " + ActiveSentence.Sentence);
         if (isInteractive)
             responseButtons.DeleteButtons ();
 
@@ -74,7 +74,9 @@ public class Dialogue : MonoBehaviour
         if (isAnswer){
             var dm = GameObject.FindGameObjectWithTag ("DialogueManager").GetComponent<DialogueManager> ();
             if (Responses.Count > 0)
-                Responses[0].ChooseDialogue ();
+                Responses[0].ChooseDialogue();
+            else
+                dm.NextDialogue(null);
         }
         else
         {

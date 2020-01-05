@@ -10,5 +10,7 @@ public class Item : MonoBehaviour
 public enum ItemType
 {
     Cigarette,
-    Food
+    Food,
+    Map,
+    Ring
 }

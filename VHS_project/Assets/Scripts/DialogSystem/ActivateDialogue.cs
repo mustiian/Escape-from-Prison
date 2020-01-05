@@ -11,6 +11,8 @@ public class ActivateDialogue : MonoBehaviour
     private DialogueManager dm;
     private GameObject player;
 
+    public bool isUsed = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +24,12 @@ public class ActivateDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject (player, Distance) && Input.GetKeyDown (KeyCode.F))
+        if (IsCloseToObject (player, Distance) && !isUsed)
         {
+            isUsed = true;
             dm.BubbleSpawner.rotation = newRotation;
             dm.StartDialogueSequence (StartDialogue);
+            StartCoroutine(RotatePlayerEnumerator(3f));
         }
     }
 
@@ -40,5 +44,24 @@ public class ActivateDialogue : MonoBehaviour
         }
 
         return false;
+    }
+
+    private IEnumerator RotatePlayerEnumerator(float duration)
+    {
+        float startTime = Time.time;
+        float step = 0;
+
+        Transform playerTransformer = player.transform;
+        var lookPos = transform.position - playerTransformer.position;
+        var rotation = Quaternion.LookRotation(lookPos);
+
+        while (startTime + duration > Time.time)
+        {
+            step += (1 / duration) * Time.deltaTime;
+
+            playerTransformer.rotation = Quaternion.Lerp(playerTransformer.rotation, rotation, step);
+
+            yield return null;
+        }
     }
 }

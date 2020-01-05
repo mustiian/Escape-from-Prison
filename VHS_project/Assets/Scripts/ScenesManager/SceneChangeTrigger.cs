@@ -21,12 +21,10 @@ public class SceneChangeTrigger : MonoBehaviour
         if (IsCloseToObject(player, 3))
         {
             SceneMapUI.SetActive (true);
-            Debug.Log ("Activate map");
         }
         else
         {
             SceneMapUI.SetActive (false);
-            Debug.Log ("Deactivate map");
         }
     }
 
