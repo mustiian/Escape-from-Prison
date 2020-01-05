@@ -10,6 +10,7 @@ TagManager:
   - UI
   - SceneManager
   - DialogueManager
+  - soundController
   layers:
   - Default
   - TransparentFX
