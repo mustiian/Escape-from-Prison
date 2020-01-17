@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    private void Start()
+    {
+        Cursor.visible = true;
+    }
+
     public void NextLevel()
     {
         int thisLevel = SceneManager.GetActiveScene().buildIndex;

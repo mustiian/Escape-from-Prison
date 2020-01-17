@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
 
 public class EndCondition : MonoBehaviour
@@ -27,7 +28,7 @@ public class EndCondition : MonoBehaviour
         fader.GetComponent<Animator>().SetTrigger("fadein");
 
         yield return new WaitForSeconds(duration);
-
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().SetMouseCursor(true);
         int thisLevel = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(thisLevel - 1);
     }
