@@ -9,7 +9,7 @@ public class ActivateDialogue : MonoBehaviour
     public Vector3 newRotation;
 
     private DialogueManager dm;
-    private GameObject player;
+    private GameObject playerCamera;
 
     public bool isUsed = false;
 
@@ -18,13 +18,13 @@ public class ActivateDialogue : MonoBehaviour
     void Start()
     {
         dm = GameObject.FindGameObjectWithTag ("DialogueManager").GetComponent<DialogueManager> ();
-        player = GameObject.FindGameObjectWithTag ("Player");
+        playerCamera = Camera.main.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject (player, Distance) && !isUsed)
+        if (IsCloseToObject (playerCamera, Distance) && !isUsed)
         {
             isUsed = true;
             dm.BubbleSpawner.rotation = newRotation;
@@ -51,15 +51,15 @@ public class ActivateDialogue : MonoBehaviour
         float startTime = Time.time;
         float step = 0;
 
-        Transform playerTransformer = player.transform;
+        Transform playerTransformer = playerCamera.transform;
         var lookPos = transform.position - playerTransformer.position;
-        var rotation = Quaternion.LookRotation(lookPos);
+        var rotation = Quaternion.LookRotation(lookPos.normalized);
 
         while (startTime + duration > Time.time)
         {
             step += (1 / duration) * Time.deltaTime;
 
-            playerTransformer.rotation = Quaternion.Lerp(playerTransformer.rotation, rotation, step);
+            playerTransformer.rotation = Quaternion.Slerp(playerTransformer.rotation, rotation, step);
 
             yield return null;
         }
