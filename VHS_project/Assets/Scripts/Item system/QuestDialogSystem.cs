@@ -6,6 +6,7 @@ using TMPro;
 public class QuestDialogSystem : MonoBehaviour
 {
     public TextMeshProUGUI Text;
+    public TextMeshProUGUI NewItemText;
 
     public string QuestText;
     public string CompletedQuestText;
@@ -37,8 +38,21 @@ public class QuestDialogSystem : MonoBehaviour
                 if (CompletedAction)
                     CompletedAction.Activate ();
 
+                if (NewItemText)
+                {
+                    NewItemText.gameObject.SetActive(true);
+                    StartCoroutine(NewItemCoroutine(1f));
+                }
+
                 if (RewardItem != null)
                     Inventory.instance.EquipItem (RewardItem.GetComponent<Item> ());
             }
+    }
+
+    private IEnumerator NewItemCoroutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        NewItemText.gameObject.SetActive(false);
     }
 }
