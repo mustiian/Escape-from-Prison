@@ -23,6 +23,9 @@ public class PrisonerController : MonoBehaviour
     private Vector3 latestPosition;
     private Animator animator;
 
+    private float findPathTime = 0f;
+    private float WaitingTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,16 +41,33 @@ public class PrisonerController : MonoBehaviour
     {
         if (state == State.Walking)
         {
-            if (!Agent.hasPath)
+            if (!Agent.hasPath || findPathTime > 4f)
+            {
+                if (foodObject != null)
+                {
+                    GameObject.Destroy(foodObject);
+                    foodObject = null;
+                }
+
                 randomPosition.FindNewPosition (Agent, Radius);
+                findPathTime = 0f;
+            }
             else
             {
+                findPathTime += Time.deltaTime;
                 animator.SetTrigger ("Walk");
             }
         }
         else if (state == State.Waiting)
         {
             animator.SetTrigger ("Idle");
+            WaitingTime += Time.deltaTime;
+
+            if (WaitingTime > 15f)
+            {
+                WaitingTime = 0f;
+                ChangeState();
+            }
         }
         else if (state == State.TakingFood)
         {
@@ -151,7 +171,7 @@ public class PrisonerController : MonoBehaviour
             {
                 LookAt (foodObject);
             }
-            else if (ReachDestination (TakeFoodPoint.position))
+            else if (IsCloseToObject(foodObject, 1f) || ReachDestination (TakeFoodPoint.position))
             {
                 foodObject.GetComponent<SaucepanController> ().Set (foodObject, Hands.gameObject, Hands);
                 foodObject.GetComponent<SaucepanController> ().PickUp ();
@@ -181,7 +201,7 @@ public class PrisonerController : MonoBehaviour
         Agent.SetDestination (GiveFoodPoint.position);
         animator.SetTrigger ("Walk");
 
-        if (ReachDestination (GiveFoodPoint.position))
+        if (ReachDestination (GiveFoodPoint.position) || IsCloseToObject(GiveFoodPoint.gameObject, 3f))
         {
             ChangeState ();
             GameObject.Destroy (foodObject);

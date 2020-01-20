@@ -28,7 +28,7 @@ public class EndCondition : MonoBehaviour
         fader.GetComponent<Animator>().SetTrigger("fadein");
 
         yield return new WaitForSeconds(duration);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().SetMouseCursor(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().SetMouseCursor(false);
         int thisLevel = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(thisLevel - 1);
     }
