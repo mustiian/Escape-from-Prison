@@ -15,6 +15,8 @@ public class PrisonerController : MonoBehaviour
     public Transform Hands;
     public bool isHungry { get; private set; } = true;
 
+    public Transform[] RandomPoints;
+
     private GameObject foodObject;
     private State state = State.Walking;
     private PrisonerRandomPosition randomPosition;
@@ -54,6 +56,12 @@ public class PrisonerController : MonoBehaviour
             }
             else
             {
+                if (Agent.pathStatus == NavMeshPathStatus.PathPartial)
+                {
+                    randomPosition.FindNewPosition(Agent, Radius);
+                    findPathTime = 0f;
+                }
+
                 findPathTime += Time.deltaTime;
                 animator.SetTrigger ("Walk");
             }
@@ -63,10 +71,11 @@ public class PrisonerController : MonoBehaviour
             animator.SetTrigger ("Idle");
             WaitingTime += Time.deltaTime;
 
-            if (WaitingTime > 15f)
+            if (WaitingTime > 12f)
             {
                 WaitingTime = 0f;
-                ChangeState();
+                int index = Random.Range(0, RandomPoints.Length);
+                Agent.SetDestination(RandomPoints[index].position);
             }
         }
         else if (state == State.TakingFood)

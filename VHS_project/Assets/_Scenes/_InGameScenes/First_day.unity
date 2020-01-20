@@ -2784,6 +2784,36 @@ MonoBehaviour:
   m_VoxelSize: 0.15333334
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: aec57dd73e1b4c74b8edd047d3725f41, type: 2}
+--- !u!1 &119034631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119034632}
+  m_Layer: 0
+  m_Name: RandomPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119034632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119034631}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.98, y: 0, z: -12.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 471786317}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &123078090
 GameObject:
   m_ObjectHideFlags: 0
@@ -8619,6 +8649,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 2054419015}
+  RandomPoints:
+  - {fileID: 119034632}
+  - {fileID: 1926703587}
+  - {fileID: 1270952851}
+  - {fileID: 1136221338}
 --- !u!136 &258258303
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9063,6 +9098,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 1486524505}
+  RandomPoints:
+  - {fileID: 1136221338}
+  - {fileID: 1270952851}
+  - {fileID: 1926703587}
+  - {fileID: 119034632}
 --- !u!136 &269473629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13364,6 +13404,8 @@ Transform:
   - {fileID: 1718581565}
   - {fileID: 1136221338}
   - {fileID: 1270952851}
+  - {fileID: 1926703587}
+  - {fileID: 119034632}
   m_Father: {fileID: 565867009}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14579,6 +14621,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 1087809886}
+  RandomPoints:
+  - {fileID: 119034632}
+  - {fileID: 1926703587}
+  - {fileID: 1270952851}
+  - {fileID: 1136221338}
 --- !u!136 &505830243
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26139,6 +26186,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 472439522}
+  RandomPoints:
+  - {fileID: 1136221338}
+  - {fileID: 1270952851}
+  - {fileID: 1926703587}
+  - {fileID: 119034632}
 --- !u!136 &992077062
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33373,6 +33425,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 1048462023}
+  RandomPoints:
+  - {fileID: 119034632}
+  - {fileID: 1926703587}
+  - {fileID: 1270952851}
+  - {fileID: 1136221338}
 --- !u!136 &1301647047
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -44507,6 +44564,11 @@ MonoBehaviour:
   TakeFoodPoint: {fileID: 1136221338}
   GiveFoodPoint: {fileID: 1270952851}
   Hands: {fileID: 564265344}
+  RandomPoints:
+  - {fileID: 119034632}
+  - {fileID: 1926703587}
+  - {fileID: 1270952851}
+  - {fileID: 1136221338}
 --- !u!136 &1832903349
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -46575,6 +46637,36 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &1926703586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1926703587}
+  m_Layer: 0
+  m_Name: RandomPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1926703587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926703586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.46, y: 0, z: -12.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 471786317}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930736345
 GameObject:
   m_ObjectHideFlags: 0
