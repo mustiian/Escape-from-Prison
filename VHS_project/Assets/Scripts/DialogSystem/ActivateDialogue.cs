@@ -10,6 +10,7 @@ public class ActivateDialogue : MonoBehaviour
 
     private DialogueManager dm;
     private GameObject playerCamera;
+    private GameObject player;
 
     public bool isUsed = false;
 
@@ -19,12 +20,13 @@ public class ActivateDialogue : MonoBehaviour
     {
         dm = GameObject.FindGameObjectWithTag ("DialogueManager").GetComponent<DialogueManager> ();
         playerCamera = Camera.main.gameObject;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsCloseToObject (playerCamera, Distance) && !isUsed)
+        if (IsCloseToObject (player, Distance) && !isUsed)
         {
             isUsed = true;
             dm.BubbleSpawner.rotation = newRotation;

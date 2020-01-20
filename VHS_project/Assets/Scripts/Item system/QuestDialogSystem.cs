@@ -41,7 +41,7 @@ public class QuestDialogSystem : MonoBehaviour
                 if (NewItemText)
                 {
                     NewItemText.gameObject.SetActive(true);
-                    StartCoroutine(NewItemCoroutine(1f));
+                    StartCoroutine(NewItemCoroutine(5f));
                 }
 
                 if (RewardItem != null)

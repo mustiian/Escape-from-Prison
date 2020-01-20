@@ -41,7 +41,7 @@ public class PlayerRaycast : MonoBehaviour
 
                 if (item != null && !playerInventory.IsItemEquipped)
                 {
-                    if (IsCloseToObject (item.gameObject, playerInventory.gameObject, 2))
+                    if (IsCloseToObject (item.gameObject, playerInventory.gameObject, 3))
                         playerInventory.EquipItem (item);
                 }
             }

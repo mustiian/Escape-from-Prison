@@ -10,7 +10,7 @@ public class Disappear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(DisappearCoroutine(10f));
+        StartCoroutine(DisappearCoroutine(16f));
     }
 
     private IEnumerator DisappearCoroutine(float duration)
