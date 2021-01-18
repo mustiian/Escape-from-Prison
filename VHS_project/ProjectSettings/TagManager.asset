@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fire
+  - Food
+  - Fader
+  - UI
+  - SceneManager
+  - DialogueManager
+  - soundController
   layers:
   - Default
   - TransparentFX
@@ -14,11 +21,11 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - NPC
+  - NotWalkable
+  - Walkable
+  - Enviroment
   - 
   - 
   - 
